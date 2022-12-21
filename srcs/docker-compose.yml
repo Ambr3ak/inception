@@ -1,16 +1,25 @@
 version: '3'
 
 services:
-  mariadb:
-    container_name: mariadb
+  nginx:
+    container_name: nginx
     networks:
     - inception
-    build:
-    context: requirements/mariadb
-    dockerfile: Dockerfile
-    env_file: .env
-    volumes:                        
-    - mariadb:/var/lib/mysql
-    restart: unless-stopped         
+    build: requirements/nginx
     expose:                         
-    - "3306"
+    - "9000"
+    ports:
+    - "443:443"
+
+  wordpress:
+    container_name: wordpress
+    networks:
+    - inception
+    build: requirements/wordpress
+    environment:
+     - WORDPRESS_DB_PASSWORD=password
+     - WORDPRESS_DB_USER=root
+    volumes:
+    - /home/abourdar/data
+
+    
