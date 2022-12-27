@@ -10,21 +10,38 @@ services:
     - "9000"
     ports:
     - "443:443"
-
+    volumes:
+      - 'wp:/var/www/wordpress'
+    depends_on:
+      - wordpress
   wordpress:
     container_name: wordpress
     # networks:
     # - inception
     build: requirements/wordpress
-    environment:
-     - WORDPRESS_DB_PASSWORD=password
-     - WORDPRESS_DB_USER=root
+    env_file:
+      - .env
     volumes:
-      - 'wp:/wp'
+      - 'wp:/var/www/wordpress'
+    depends_on:
+      - mariadb
+  mariadb:
+    container_name: mariadb
+    build: requirements/mariadb
+    env_file:
+      - .env
+    volumes:
+    - 'db:/var/www/db'
 volumes:
   wp:
     driver: local
     driver_opts:
       type: 'none'
-      device: '${PWD}/wp'
+      device: '/home/lambrette/data/wp'
+      o: 'bind'
+  db:
+    driver: local
+    driver_opts:
+      type: 'none'
+      device: '/home/lambrette/data/db'
       o: 'bind'
