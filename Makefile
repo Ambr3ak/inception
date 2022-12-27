@@ -1,4 +1,4 @@
-CC 			= docker compose
+CC 			= -docker compose
 RM			= rm -rf
 
 SRCS		=	srcs/docker-compose.yml
@@ -13,15 +13,12 @@ start		:
 stop		:
 			$(CC) -f $(SRCS) stop
 
-delete		:
-			$(CC) $(SRCS) down -v
+clean		: stop
+			$(CC) -f $(SRCS) down --volumes --remove-orphans
 
-clean		:
-			@$(RM) $(OBJS)
-
-fclean		: 
-			docker system prune -af
+fclean		: clean
+			-docker system prune -af --volumes 2> /dev/null
 
 re			: fclean all
 
-.PHONY		: start stop delete clean fclean re
+.PHONY		: start stop clean fclean re

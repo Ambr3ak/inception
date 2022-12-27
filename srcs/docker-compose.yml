@@ -3,8 +3,8 @@ version: '3'
 services:
   nginx:
     container_name: nginx
-    networks:
-    - inception
+    # networks:
+    # - inception
     build: requirements/nginx
     expose:                         
     - "9000"
@@ -13,13 +13,18 @@ services:
 
   wordpress:
     container_name: wordpress
-    networks:
-    - inception
+    # networks:
+    # - inception
     build: requirements/wordpress
     environment:
      - WORDPRESS_DB_PASSWORD=password
      - WORDPRESS_DB_USER=root
     volumes:
-    - /home/abourdar/data
-
-    
+      - 'wp:/wp'
+volumes:
+  wp:
+    driver: local
+    driver_opts:
+      type: 'none'
+      device: '${PWD}/wp'
+      o: 'bind'
