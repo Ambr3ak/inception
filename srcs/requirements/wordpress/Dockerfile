@@ -15,7 +15,11 @@ RUN chmod +x wp-cli.phar
 RUN mv wp-cli.phar /usr/local/bin/wp
 					
 COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d/www.conf
-COPY ./conf/auto_conf.sh auto_conf.sh
+COPY ./conf/auto_conf.sh /user/local/bin/
 
 EXPOSE 9000 3306
-ENTRYPOINT [ "bash", "auto_conf.sh" ]
+
+RUN chmod +x /user/local/bin/auto_conf.sh
+ENTRYPOINT ["/user/local/bin/auto_conf.sh" ]
+
+CMD ["/usr/sbin/php-fpm7.3", "-F"]

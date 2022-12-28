@@ -19,5 +19,4 @@ wp user create --allow-root bob bob@example.com --role=subscriber
 
 chown -R www-data:www-data /var/www/wordpress
 
-
-/usr/sbin/php-fpm7.3 -F -R
+exec "$@"

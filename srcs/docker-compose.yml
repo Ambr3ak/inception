@@ -3,8 +3,8 @@ version: '3'
 services:
   nginx:
     container_name: nginx
-    # networks:
-    # - inception
+    networks:
+    - inception
     build: requirements/nginx
     expose:                         
     - "9000"
@@ -14,10 +14,11 @@ services:
       - 'wp:/var/www/wordpress'
     depends_on:
       - wordpress
+    restart: always
   wordpress:
     container_name: wordpress
-    # networks:
-    # - inception
+    networks:
+    - inception
     build: requirements/wordpress
     env_file:
       - .env
@@ -25,13 +26,17 @@ services:
       - 'wp:/var/www/wordpress'
     depends_on:
       - mariadb
+    restart: always
   mariadb:
     container_name: mariadb
+    networks:
+      - inception
     build: requirements/mariadb
     env_file:
       - .env
     volumes:
     - 'db:/var/www/db'
+    restart: always
 volumes:
   wp:
     driver: local
@@ -45,3 +50,6 @@ volumes:
       type: 'none'
       device: '/home/lambrette/data/db'
       o: 'bind'
+networks:
+  inception:
+    driver: bridge
