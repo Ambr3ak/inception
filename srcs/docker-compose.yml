@@ -11,7 +11,7 @@ services:
     ports:
     - "443:443"
     volumes:
-      - 'wp:/var/www/wordpress'
+      - 'wordpress:/var/www/wordpress'
     depends_on:
       - wordpress
     restart: always
@@ -23,7 +23,7 @@ services:
     env_file:
       - .env
     volumes:
-      - 'wp:/var/www/wordpress'
+      - 'wordpress:/var/www/wordpress'
     depends_on:
       - mariadb
     restart: always
@@ -38,17 +38,17 @@ services:
     - 'db:/var/www/db'
     restart: always
 volumes:
-  wp:
+  wordpress:
     driver: local
     driver_opts:
       type: 'none'
-      device: '/home/lambrette/data/wp'
+      device: '/home/abourdar/data/wordpress'
       o: 'bind'
   db:
     driver: local
     driver_opts:
       type: 'none'
-      device: '/home/lambrette/data/db'
+      device: '/home/abourdar/data/db'
       o: 'bind'
 networks:
   inception:

@@ -8,8 +8,8 @@ _BOLD		= \033[1m
 
 
 start		:
-			mkdir -p /home/lambrette/data/wp
-			mkdir -p /home/lambrette/data/db
+			mkdir -p /home/abourdar/data/wordpress
+			mkdir -p /home/abourdar/data/db
 			$(CC) -f $(SRCS) up -d --build
 
 stop		:
