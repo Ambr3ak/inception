@@ -18,8 +18,8 @@ then
                     --admin_user=$ADMIN_USER \
                     --admin_password=$ADMIN_PASSWORD \
                     --admin_email=$ADMIN_MAIL
-    wp user create --allow-root bob bob@example.com --role=subscriber
-    wp theme install  boldgrid-primas --activate --allow-root
+    wp user create --allow-root user user@example.com --role=subscriber
+    wp theme install  twentytwentyone --activate --allow-root
     chown -R www-data:www-data /var/www/wordpress
 
 fi
