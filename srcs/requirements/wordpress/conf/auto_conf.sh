@@ -19,6 +19,7 @@ then
                     --admin_password=$ADMIN_PASSWORD \
                     --admin_email=$ADMIN_MAIL
     wp user create --allow-root bob bob@example.com --role=subscriber
+    wp theme install twentysixteen --activate
     chown -R www-data:www-data /var/www/wordpress
 
 fi
