@@ -57,3 +57,11 @@ This volumes must be available form the rep `/home/<login>/data`
     
 - Have a makefile that compiles all the files
 - “*Your NGINX container must be the only entry point to your infrastructure through port 443 only using TLSv1.2 or TLSv1.3 protocol”*
+
+##How to launch the program ?
+First use this commands to erase all the previous data you might have stored.
+
+```docker stop $(docker ps -qa); docker rm $(docker ps -qa);
+docker rmi -f $(docker images -qa); docker volume rm $(docker volume ls -q);docker network rm $(docker network ls -q) 2>/dev/null```
+
+Then launch the program by using ``make``
